@@ -1,5 +1,11 @@
-import TypingArea from "./components/TypingArea";
+import ThemeChanger from "./components/ThemeChanger";
+import TypingArea from "./components/TypingComponents/TypingArea";
 
 export default function Home() {
-  return <TypingArea />;
+  return (
+    <>
+      <TypingArea />
+      <ThemeChanger />
+    </>
+  );
 }

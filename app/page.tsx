@@ -1,4 +1,4 @@
-import NevBarButton from "./components/NevBarButton";
+import NevBarButton from "./components/NavBarButton";
 import ThemeChanger from "./components/ThemeChanger";
 import TypingArea from "./components/TypingComponents/TypingArea";
 
@@ -7,7 +7,7 @@ export default function Home() {
     <>
       <TypingArea />
       <ThemeChanger />
-      <NevBarButton buttonText={"Typing"} pageLink={"/typing"} />
+      <NevBarButton buttonText={"Typing"} pageLink={"/s"} />
     </>
   );
 }

@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .text-titleLarge {
+    @apply text-[22px] leading-7;
+  }
+  .btn-border {
+    @apply border-2 border-[--text-primary] rounded-full inline-block;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background-primary: #141414;
@@ -17,8 +26,14 @@
 
 @media (prefers-color-scheme: light) {
   :root {
-    background-color: white;
-    color: black;
+    --background-primary: white;
+    --text-primary: black;
+    --text-secondary: #bfbfbf;
+    --text-tertiary: #c39ee8;
+    --primary-200: #c39ee8;
+    --primary-400: #9657d6;
+    --primary-600: #7129ba;
+    --primary-900: #341356;
   }
 }
 
@@ -34,6 +49,12 @@
 }
 
 :root[CurrentTheme="light"] {
-  background-color: white;
-  color: black;
+  --background-primary: white;
+  --text-primary: black;
+  --text-secondary: #bfbfbf;
+  --text-tertiary: #c39ee8;
+  --primary-200: #c39ee8;
+  --primary-400: #9657d6;
+  --primary-600: #7129ba;
+  --primary-900: #341356;
 }

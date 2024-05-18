@@ -38,7 +38,7 @@ export default function BackgroundSvgShapes() {
         </svg>
       </div>
       {/* the bottom center shape */}
-      <div className="absolute bottom-0 left-[480px] z-[-9000]">
+      <div className="absolute bottom-0 right-[680px] z-[-9000]">
         <svg
           width="238"
           height="92"

@@ -7,7 +7,7 @@ interface itemsType {
 }
 export default function MenuItems() {
   return (
-    <div className="flex gap-2 justify-between">
+    <div className="flex gap-2 justify-between width-[2/4]">
       {items.map((singleItem: itemsType) => (
         <NevBarButton
           key={singleItem.title}

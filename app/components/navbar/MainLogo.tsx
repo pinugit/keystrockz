@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function MainLogo() {
   return (
-    <button>
+    <button className="width-[1/4]">
       <Link href={"/"}>
         <svg
           width="110"

@@ -16,6 +16,10 @@
     backdrop-filter: blur(12.8px);
     -webkit-backdrop-filter: blur(12.8px);
   }
+  .btn-primary {
+    /* purple fill button */
+    @apply bg-[--primary-600] text-[--text-primary] hover:bg-[--primary-400] px-4 py-1 duration-[400ms] ease-in-out rounded-full;
+  }
 }
 
 @media (prefers-color-scheme: dark) {

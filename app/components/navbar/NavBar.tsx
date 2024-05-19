@@ -1,3 +1,4 @@
+import { SignIn } from "../SIgnIn";
 import MainLogo from "./MainLogo";
 import MenuItems from "./MenuItems";
 
@@ -6,7 +7,9 @@ export default function NavBar() {
     <div className="navbarBlurBg h-[80px] border-b-[1px] border-[#878686] px-20 flex justify-between items-center">
       <MainLogo />
       <MenuItems />
-      <div className=" width-[1/4]">Dummy Item</div>
+      <div className=" width-[1/4]">
+        <SignIn />
+      </div>
     </div>
   );
 }

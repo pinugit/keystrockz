@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import BackgroundSvgShapes from "./components/BackgroundSvgShapes";
+import BgBlobAnimate from "./components/BackgroundBlobAnimation/BgBlobAnimate";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className + " bg-[--background-primary]"}>
         <BackgroundSvgShapes />
+        <BgBlobAnimate/>
         {children}
       </body>
     </html>

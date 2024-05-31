@@ -7,10 +7,8 @@ import { SignOut } from "../SignOut";
 export default async function NavBar() {
   const session = await auth();
 
-  console.log(session);
-
   return (
-    <div className="navbarBlurBg h-[80px] border-b-[1px] border-[#878686] px-20 flex justify-between items-center">
+    <div className="navbarBlurBg h-[80px] w-full border-b-[1px] border-[#878686] px-20 flex justify-between items-center fixed top-0">
       <MainLogo />
       <MenuItems />
       <div className=" width-[1/4]">

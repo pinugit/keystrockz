@@ -69,3 +69,10 @@
   --primary-600: #7129ba;
   --primary-900: #341356;
 }
+
+.hideScrollbar {
+  scrollbar-width: none; /* Hides scrollbar track */
+  -webkit-scrollbar-style: none; /* Hides scrollbar thumb */
+  /* for firefox */
+  scrollbar-width: none; /* Hides scrollbar track */
+}

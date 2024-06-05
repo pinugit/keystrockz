@@ -13,6 +13,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: -60px;
 }
 
 .blob1 {
@@ -20,9 +21,9 @@
   height: 250px;
   border-radius: 50%;
   background: var(--primary-600);
-  animation: blob1 90s ease-in-out infinite;
-  opacity: 30%;
-  filter: blur(70px);
+  animation: blob1 70s ease-in-out infinite;
+  opacity: 40%;
+  filter: blur(50px);
 }
 
 .blob2 {
@@ -30,9 +31,9 @@
   height: 200px;
   border-radius: 50%;
   background: var(--primary-400);
-  animation: blob2 90s ease-in-out infinite;
-  opacity: 30%;
-  filter: blur(70px);
+  animation: blob2 70s ease-in-out infinite;
+  opacity: 40%;
+  filter: blur(50px);
 }
 .blob3 {
   position: absolute;
@@ -41,9 +42,10 @@
   height: 250px;
   border-radius: 50%;
   background: var(--primary-600);
-  animation: blob3 90s ease-in-out infinite;
-  opacity: 30%;
-  filter: blur(70px);
+  animation: blob3 70s ease-in-out infinite;
+  opacity: 40%;
+  filter: blur(50px);
+  margin-top: -60px;
 }
 
 @keyframes blob1 {

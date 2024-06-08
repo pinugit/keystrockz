@@ -2,12 +2,14 @@
 
 interface props {
   onLetterType: (letter: string) => void;
+  typingInputRef: React.RefObject<HTMLInputElement>;
 }
-export default function TypingInput({ onLetterType }: props) {
+export default function TypingInput({ onLetterType, typingInputRef }: props) {
   return (
     <input
-      autoFocus
       type="text"
+      autoFocus
+      ref={typingInputRef}
       className="absolute bottom-0 right-0 p-2 border border-black rounded"
       onChange={(e) => {
         onLetterType(e.target.value);

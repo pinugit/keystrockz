@@ -1,14 +1,29 @@
 "use client";
 
+import { useRef } from "react";
 import TypingInput from "./TypingInput";
 export default function TypingArea() {
+  const typingInputRef = useRef<HTMLInputElement>(null);
   const onLetterType = (letter: string) => {
     console.log(letter);
   };
+
+  const onTypingAreaClick = () => {
+    if (typingInputRef.current) {
+      typingInputRef.current.focus();
+    }
+  };
+
   return (
     <>
-      <TypingInput onLetterType={onLetterType} />
-      <div className="text-[--text-primary] leading-loose text-3xl px-20 h-[24%] overflow-scroll z-50 hideScrollbar ">
+      <TypingInput
+        typingInputRef={typingInputRef}
+        onLetterType={onLetterType}
+      />
+      <div
+        onClick={onTypingAreaClick}
+        className="text-[--text-primary] leading-loose text-3xl px-20 h-[24%] overflow-scroll z-50 hideScrollbar "
+      >
         {" "}
         Gravida dictum fusce ut placerat. Id neque aliquam vestibulum morbi
         blandit. Enim eu turpis egestas pretium. Pulvinar etiam non quam lacus

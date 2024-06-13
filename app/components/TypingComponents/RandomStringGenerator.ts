@@ -1,7 +1,4 @@
-export default function RandomWordArray(
-  randomArrayLength: number,
-  wordList: string[]
-) {
+function RandomWordArray(randomArrayLength: number, wordList: string[]) {
   const randomWordArray = [];
 
   for (let i = 0; i < randomArrayLength; i++) {
@@ -10,4 +7,21 @@ export default function RandomWordArray(
   }
 
   return randomWordArray;
+}
+
+export default function RandomLetterObject(
+  randomArrayLength: number,
+  wordList: string[]
+) {
+  const wordArray = RandomWordArray(randomArrayLength, wordList);
+  let LetterObject = [];
+
+  for (const word of wordArray) {
+    let indivudialLetters = [];
+    for (let letter of word) {
+      indivudialLetters.push(letter);
+    }
+    LetterObject.push(indivudialLetters);
+  }
+  return LetterObject;
 }

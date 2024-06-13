@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import TypingInput from "./TypingInput";
-import RandomWordArray from "./RandomStringGenerator";
 import commonEnglishWords from "./CommonEnglishWords";
+import RandomSentenceDisplay from "./RandomSentenceDisplay";
 export default function TypingArea() {
   const typingInputRef = useRef<HTMLInputElement>(null);
   const onLetterType = (letter: string) => {
@@ -16,8 +16,6 @@ export default function TypingArea() {
     }
   };
 
-  const randomArray = RandomWordArray(20, commonEnglishWords);
-
   return (
     <>
       <TypingInput
@@ -28,9 +26,10 @@ export default function TypingArea() {
         onClick={onTypingAreaClick}
         className="text-[--text-primary] leading-loose text-3xl px-20 h-[24%] overflow-scroll z-50 hideScrollbar flex flex-wrap"
       >
-        {randomArray.map((singleWord) => (
-          <p className="ml-3">{singleWord}</p>
-        ))}
+        <RandomSentenceDisplay
+          randomWordList={commonEnglishWords}
+          lengthOfSentence={20}
+        />
       </div>
     </>
   );

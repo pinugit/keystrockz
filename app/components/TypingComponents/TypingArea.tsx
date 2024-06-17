@@ -4,6 +4,7 @@ import { useRef } from "react";
 import TypingInput from "./TypingInput";
 import commonEnglishWords from "./CommonEnglishWords";
 import RandomSentenceDisplay from "./RandomSentenceDisplay";
+import Cursor from "./Cursor";
 export default function TypingArea() {
   const typingInputRef = useRef<HTMLInputElement>(null);
   const onLetterType = (letter: string) => {
@@ -22,6 +23,7 @@ export default function TypingArea() {
         typingInputRef={typingInputRef}
         onLetterType={onLetterType}
       />
+      <Cursor />
       <div
         onClick={onTypingAreaClick}
         className="text-[--text-primary] leading-loose text-3xl px-20 h-[24%] overflow-scroll z-50 hideScrollbar flex flex-wrap"
@@ -29,6 +31,9 @@ export default function TypingArea() {
         <RandomSentenceDisplay
           randomWordList={commonEnglishWords}
           lengthOfSentence={20}
+          onLetterRefChange={function (letterRef: string[][] | null[][]): void {
+            throw new Error("Function not implemented.");
+          }}
         />
       </div>
     </>

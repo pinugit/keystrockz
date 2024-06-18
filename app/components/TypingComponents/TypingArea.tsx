@@ -5,6 +5,7 @@ import TypingInput from "./TypingInput";
 import commonEnglishWords from "./CommonEnglishWords";
 import RandomSentenceDisplay from "./RandomSentenceDisplay";
 import Cursor from "./Cursor";
+
 export default function TypingArea() {
   const typingInputRef = useRef<HTMLInputElement>(null);
   const [letterRef, setLetterRef] = useState<null[][] | HTMLDivElement[][]>([
@@ -17,8 +18,50 @@ export default function TypingArea() {
     left: 0,
     top: 0,
   });
+  const [currentWordLetterIndex, setCurrentWordLetterIndex] = useState({
+    wordIndex: 0,
+    letterIndex: 0,
+  });
 
-  const onLetterType = (letter: string) => {};
+  const onLetterType = (letter: string) => {
+    if (
+      letterRef[currentWordLetterIndex.wordIndex][
+        currentWordLetterIndex.letterIndex
+      ]?.innerText === letter
+    ) {
+      setCurrentWordLetterIndex({
+        wordIndex: currentWordLetterIndex.wordIndex,
+        letterIndex: currentWordLetterIndex.letterIndex + 1,
+      });
+
+      if (
+        currentWordLetterIndex.letterIndex >
+        letterRef[currentWordLetterIndex.wordIndex].length - 1
+      ) {
+        setCurrentWordLetterIndex({
+          wordIndex: currentWordLetterIndex.wordIndex + 1,
+          letterIndex: 0,
+        });
+      }
+
+      setNextPositionForCursor({
+        left: letterRef[currentWordLetterIndex.wordIndex][
+          currentWordLetterIndex.letterIndex
+        ]?.offsetLeft + letterRef[currentWordLetterIndex.wordIndex][
+          currentWordLetterIndex.letterIndex
+        ]?.offsetWidth,
+        top: letterRef[currentWordLetterIndex.wordIndex][
+          currentWordLetterIndex.letterIndex
+        ]?.offsetTop,
+      });
+    }
+
+    // console.log(
+    //   letterRef[currentWordLetterIndex.wordIndex][
+    //     currentWordLetterIndex.letterIndex
+    //   ]?.innerText
+    // );
+  };
 
   const onTypingAreaClick = () => {
     if (typingInputRef.current) {

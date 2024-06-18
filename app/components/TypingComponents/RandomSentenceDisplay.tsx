@@ -5,7 +5,7 @@ import RandomLetterObject from "./RandomStringGenerator";
 interface props {
   randomWordList: string[];
   lengthOfSentence: number;
-  onLetterRefChange: (letterRef: string[][] | null[][]) => void;
+  onLetterRefChange: (letterRef: HTMLDivElement[][] | null[][]) => void;
 }
 export default function RandomSentenceDisplay({
   randomWordList,
@@ -13,7 +13,7 @@ export default function RandomSentenceDisplay({
   onLetterRefChange,
 }: props) {
   const [letterObject, setLetterObject] = useState<string[][]>([[]]);
-  const letterRef = useRef([[null]]);
+  const letterRef = useRef<HTMLDivElement[][] | null[][]>([[null]]);
 
   useEffect(() => {
     const newLetterObject = RandomLetterObject(
@@ -24,15 +24,19 @@ export default function RandomSentenceDisplay({
     letterRef.current = newLetterObject.map((word) => word.map(() => null));
   }, []);
 
-  console.log("letter ref");
-  console.log(letterRef.current);
+  useEffect(() => {
+    onLetterRefChange(letterRef.current);
+  }, [letterRef]);
 
   return (
     <>
       {letterObject.map((word, index) => (
         <div key={index} className="mr-4 flex ">
           {word.map((letter, indexLetter) => (
-            <div ref={(ref) => letterRef.current[index][indexLetter] = ref} key={indexLetter}>
+            <div
+              ref={(ref) => (letterRef.current[index][indexLetter] = ref)}
+              key={indexLetter}
+            >
               {letter}
             </div>
           ))}

@@ -1,14 +1,21 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import TypingInput from "./TypingInput";
 import commonEnglishWords from "./CommonEnglishWords";
 import RandomSentenceDisplay from "./RandomSentenceDisplay";
 import Cursor from "./Cursor";
 export default function TypingArea() {
   const typingInputRef = useRef<HTMLInputElement>(null);
+  const [letterRef, setLetterRef] = useState<null[][] | HTMLDivElement[][]>([
+    [null],
+  ]);
+  const [nextPositionForCursor, setNextPositionForCursor] = useState<{
+    left: number;
+    top: number;
+  }>({ left: 0, top: 0 });
   const onLetterType = (letter: string) => {
-    console.log(letter);
+    setNextPositionForCursor({ top: 100, left: 100 });
   };
 
   const onTypingAreaClick = () => {
@@ -23,7 +30,7 @@ export default function TypingArea() {
         typingInputRef={typingInputRef}
         onLetterType={onLetterType}
       />
-      <Cursor />
+      <Cursor positionLeft={nextPositionForCursor.left} positoinTop={nextPositionForCursor.top} />
       <div
         onClick={onTypingAreaClick}
         className="text-[--text-primary] leading-loose text-3xl px-20 h-[24%] overflow-scroll z-50 hideScrollbar flex flex-wrap"
@@ -31,9 +38,7 @@ export default function TypingArea() {
         <RandomSentenceDisplay
           randomWordList={commonEnglishWords}
           lengthOfSentence={20}
-          onLetterRefChange={function (letterRef: string[][] | null[][]): void {
-            throw new Error("Function not implemented.");
-          }}
+          onLetterRefChange={(newLetterRef) => setLetterRef(newLetterRef)}
         />
       </div>
     </>

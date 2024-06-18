@@ -47,7 +47,7 @@ export default function TypingArea() {
       />
       <div
         onClick={onTypingAreaClick}
-        className="text-[--text-primary] leading-loose text-3xl px-20 h-[24%] overflow-scroll z-50 hideScrollbar flex flex-wrap"
+        className="text-[--text-primary]  text-3xl px-20 h-[24%] overflow-scroll z-50 hideScrollbar flex flex-wrap "
       >
         <RandomSentenceDisplay
           randomWordList={commonEnglishWords}

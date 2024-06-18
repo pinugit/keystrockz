@@ -31,7 +31,7 @@ export default function RandomSentenceDisplay({
   return (
     <>
       {letterObject.map((word, index) => (
-        <div key={index} className="mr-4 flex ">
+        <div key={index} className="mb-8 mr-4 flex ">
           {word.map((letter, indexLetter) => (
             <div
               ref={(ref) => (letterRef.current[index][indexLetter] = ref)}

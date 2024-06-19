@@ -10,7 +10,7 @@ export default function TypingInput({ onLetterType, typingInputRef }: props) {
       type="text"
       autoFocus
       ref={typingInputRef}
-      className="absolute bottom-0 right-0 p-2 border border-black rounded"
+      className="fixed top-[-100px] left-[-100px] p-2 border border-black rounded"
       onChange={(e) => {
         onLetterType(e.target.value);
         e.target.value = "";

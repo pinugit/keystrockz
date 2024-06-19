@@ -109,11 +109,11 @@ export default function TypingArea() {
       />
       <div
         onClick={onTypingAreaClick}
-        className="text-[--text-secondary]  text-3xl px-20 h-[24%] overflow-scroll z-50 hideScrollbar flex flex-wrap "
+        className="text-[--text-secondary]  text-3xl px-20 h-[24%] overflow-scroll z-50 hideScrollbar flex flex-wrap"
       >
         <RandomSentenceDisplay
           randomWordList={commonEnglishWords}
-          lengthOfSentence={20}
+          lengthOfSentence={50}
           onLetterRefChange={(newLetterRef) => setLetterRef(newLetterRef)}
         />
       </div>

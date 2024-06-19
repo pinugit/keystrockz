@@ -7,10 +7,16 @@ import RandomSentenceDisplay from "./RandomSentenceDisplay";
 import Cursor from "./Cursor";
 
 export default function TypingArea() {
+  // Reference to the typing input element
   const typingInputRef = useRef<HTMLInputElement>(null);
+  // State to store the letter ref, which is an array of arrays of HTMLDivElement
   const [letterRef, setLetterRef] = useState<null[][] | HTMLDivElement[][]>([
     [],
   ]);
+
+  // State to store the simple letter ref, which is an array of HTMLDivElement
+  const [simpleLetterRef, setSimpleLetterRef] = useState<HTMLDivElement[]>([]);
+  // State to store the next position for the cursor
   const [nextPositionForCursor, setNextPositionForCursor] = useState<{
     left: number;
     top: number;
@@ -18,64 +24,47 @@ export default function TypingArea() {
     left: 0,
     top: 0,
   });
+  // State to store the current word letter index
   const [currentWordLetterIndex, setCurrentWordLetterIndex] = useState({
     wordIndex: 0,
     letterIndex: 0,
   });
 
-  const onLetterType = (letter: string) => {
-    if (
-      letterRef[currentWordLetterIndex.wordIndex][
-        currentWordLetterIndex.letterIndex
-      ]?.innerText === letter
-    ) {
-      setCurrentWordLetterIndex({
-        wordIndex: currentWordLetterIndex.wordIndex,
-        letterIndex: currentWordLetterIndex.letterIndex + 1,
-      });
+  // Callback function when a letter is typed
+  const onLetterType = (letter: string) => {};
 
-      if (
-        currentWordLetterIndex.letterIndex >
-        letterRef[currentWordLetterIndex.wordIndex].length - 1
-      ) {
-        setCurrentWordLetterIndex({
-          wordIndex: currentWordLetterIndex.wordIndex + 1,
-          letterIndex: 0,
-        });
-      }
-
-      setNextPositionForCursor({
-        left: letterRef[currentWordLetterIndex.wordIndex][
-          currentWordLetterIndex.letterIndex
-        ]?.offsetLeft + letterRef[currentWordLetterIndex.wordIndex][
-          currentWordLetterIndex.letterIndex
-        ]?.offsetWidth,
-        top: letterRef[currentWordLetterIndex.wordIndex][
-          currentWordLetterIndex.letterIndex
-        ]?.offsetTop,
-      });
-    }
-
-    // console.log(
-    //   letterRef[currentWordLetterIndex.wordIndex][
-    //     currentWordLetterIndex.letterIndex
-    //   ]?.innerText
-    // );
-  };
-
+  // Callback function when the typing area is clicked
   const onTypingAreaClick = () => {
     if (typingInputRef.current) {
       typingInputRef.current.focus();
     }
   };
 
-  useEffect(() => {
-    if (letterRef[0][0]) {
-      setNextPositionForCursor({
-        left: letterRef[0][0].offsetLeft,
-        top: letterRef[0][0].offsetTop,
+  // Function to create a dummy div element
+  const createDummyDivElement = () => {
+    const dummyDiv = document.createElement("div");
+    dummyDiv.textContent = "space"; // Set the text content to space
+    return dummyDiv;
+  };
+
+  // Function to convert the letter ref to simple letter ref
+  const letterRefToSimpleLetterRef = () => {
+    let newLetterRef: HTMLDivElement[] = [];
+    letterRef.map((word) => {
+      word.map((letter) => {
+        if (letter) {
+          newLetterRef.push(letter);
+        }
       });
-    }
+      newLetterRef.push(createDummyDivElement());
+    });
+    console.log(newLetterRef);
+    setSimpleLetterRef(newLetterRef);
+  };
+
+  // Effect hook to call letterRefToSimpleLetterRef when letterRef changes
+  useEffect(() => {
+    letterRefToSimpleLetterRef();
   }, [letterRef]);
 
   return (

@@ -39,6 +39,7 @@ export default function TypingArea() {
     const nextLetter = simpleLetterRef[typedIndex + 1].innerText;
 
     if (typedLetter === currentLetter) {
+      simpleLetterRef[typedIndex].classList.add("text-[--text-primary]");
       if (nextLetter === " ") {
         setNextPositionForCursor({
           left:
@@ -49,12 +50,12 @@ export default function TypingArea() {
         setTypedIndex(typedIndex + 1);
         return;
       }
+
       setNextPositionForCursor({
         left: simpleLetterRef[typedIndex + 1]?.offsetLeft,
         top: simpleLetterRef[typedIndex + 1]?.offsetTop,
       });
       setTypedIndex(typedIndex + 1);
-      console.log("correct");
     }
   };
 
@@ -108,7 +109,7 @@ export default function TypingArea() {
       />
       <div
         onClick={onTypingAreaClick}
-        className="text-[--text-primary]  text-3xl px-20 h-[24%] overflow-scroll z-50 hideScrollbar flex flex-wrap "
+        className="text-[--text-secondary]  text-3xl px-20 h-[24%] overflow-scroll z-50 hideScrollbar flex flex-wrap "
       >
         <RandomSentenceDisplay
           randomWordList={commonEnglishWords}

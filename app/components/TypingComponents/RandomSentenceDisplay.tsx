@@ -20,10 +20,12 @@ const wordVarient = {
   initial: {
     opacity: 0,
     scale: 0.8,
+    y: 10,
   },
   animate: (index: number) => ({
     opacity: 1,
     scale: 1,
+    y: 0,
     transition: { delay: 0.03 * index },
   }),
 };

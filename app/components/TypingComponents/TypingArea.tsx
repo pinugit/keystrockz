@@ -5,6 +5,7 @@ import TypingInput from "./TypingInput";
 import commonEnglishWords from "./CommonEnglishWords";
 import RandomSentenceDisplay from "./RandomSentenceDisplay";
 import Cursor from "./Cursor";
+import next from "next";
 
 export default function TypingArea() {
   // Reference to the typing input element
@@ -21,17 +22,41 @@ export default function TypingArea() {
     left: number;
     top: number;
   }>({
-    left: 0,
-    top: 0,
+    left: simpleLetterRef[0]?.offsetLeft,
+    top: simpleLetterRef[0]?.offsetTop,
   });
   // State to store the current word letter index
-  const [currentWordLetterIndex, setCurrentWordLetterIndex] = useState({
-    wordIndex: 0,
-    letterIndex: 0,
-  });
+  // const [currentWordLetterIndex, setCurrentWordLetterIndex] = useState({
+  //   wordIndex: 0,
+  //   letterIndex: 0,
+  // });
+  const [typedIndex, setTypedIndex] = useState(0);
 
   // Callback function when a letter is typed
-  const onLetterType = (letter: string) => {};
+  const onLetterType = (typedLetter: string) => {
+    console.log(typedLetter);
+    const currentLetter = simpleLetterRef[typedIndex].innerText;
+    const nextLetter = simpleLetterRef[typedIndex + 1].innerText;
+
+    if (typedLetter === currentLetter) {
+      if (nextLetter === " ") {
+        setNextPositionForCursor({
+          left:
+            simpleLetterRef[typedIndex]?.offsetLeft +
+            simpleLetterRef[typedIndex]?.offsetWidth,
+          top: simpleLetterRef[typedIndex]?.offsetTop,
+        });
+        setTypedIndex(typedIndex + 1);
+        return;
+      }
+      setNextPositionForCursor({
+        left: simpleLetterRef[typedIndex + 1]?.offsetLeft,
+        top: simpleLetterRef[typedIndex + 1]?.offsetTop,
+      });
+      setTypedIndex(typedIndex + 1);
+      console.log("correct");
+    }
+  };
 
   // Callback function when the typing area is clicked
   const onTypingAreaClick = () => {
@@ -43,7 +68,7 @@ export default function TypingArea() {
   // Function to create a dummy div element
   const createDummyDivElement = () => {
     const dummyDiv = document.createElement("div");
-    dummyDiv.textContent = "space"; // Set the text content to space
+    dummyDiv.textContent = " "; // Set the text content to space
     return dummyDiv;
   };
 
@@ -60,6 +85,10 @@ export default function TypingArea() {
     });
     console.log(newLetterRef);
     setSimpleLetterRef(newLetterRef);
+    setNextPositionForCursor({
+      left: newLetterRef[0].offsetLeft,
+      top: newLetterRef[0].offsetTop,
+    });
   };
 
   // Effect hook to call letterRefToSimpleLetterRef when letterRef changes

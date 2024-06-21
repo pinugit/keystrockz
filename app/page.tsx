@@ -1,9 +1,13 @@
+import { Suspense } from "react";
 import TypingArea from "./components/TypingComponents/TypingArea";
+import Loading from "./loading";
 
 export default function Home() {
   return (
     <div className="flex justify-center items-center h-screen">
-      <TypingArea />
+      <Suspense fallback={<Loading />}>
+        <TypingArea />
+      </Suspense>
     </div>
   );
 }

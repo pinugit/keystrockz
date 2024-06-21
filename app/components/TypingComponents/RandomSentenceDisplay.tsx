@@ -1,14 +1,6 @@
-"use client";
-import {
-  LegacyRef,
-  RefObject,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { useEffect, useRef, useState } from "react";
 import RandomLetterObject from "./RandomStringGenerator";
-import { delay, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface props {
   randomWordList: string[];

@@ -5,7 +5,6 @@ import TypingInput from "./TypingInput";
 import commonEnglishWords from "./CommonEnglishWords";
 import RandomSentenceDisplay from "./RandomSentenceDisplay";
 import Cursor from "./Cursor";
-import next from "next";
 
 export default function TypingArea() {
   // Reference to the typing input element
@@ -34,7 +33,6 @@ export default function TypingArea() {
 
   // Callback function when a letter is typed
   const onLetterType = (typedLetter: string) => {
-    console.log(typedLetter);
     const currentLetter = simpleLetterRef[typedIndex].innerText;
     const nextLetter = simpleLetterRef[typedIndex + 1].innerText;
 
@@ -84,7 +82,6 @@ export default function TypingArea() {
       });
       newLetterRef.push(createDummyDivElement());
     });
-    console.log(newLetterRef);
     setSimpleLetterRef(newLetterRef);
     setNextPositionForCursor({
       left: newLetterRef[0].offsetLeft,

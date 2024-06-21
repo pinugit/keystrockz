@@ -14,6 +14,8 @@ export default function TypingArea() {
     [],
   ]);
 
+  const [isCursorVisible, setIsCursorVisible] = useState(false);
+
   // State to store the simple letter ref, which is an array of HTMLDivElement
   const [simpleLetterRef, setSimpleLetterRef] = useState<HTMLDivElement[]>([]);
   // State to store the next position for the cursor
@@ -92,6 +94,9 @@ export default function TypingArea() {
   // Effect hook to call letterRefToSimpleLetterRef when letterRef changes
   useEffect(() => {
     letterRefToSimpleLetterRef();
+    setTimeout(() => {
+      setIsCursorVisible(true);
+    }, 400);
   }, [letterRef]);
 
   return (
@@ -100,10 +105,12 @@ export default function TypingArea() {
         typingInputRef={typingInputRef}
         onLetterType={onLetterType}
       />
-      <Cursor
-        positionLeft={nextPositionForCursor.left}
-        positoinTop={nextPositionForCursor.top}
-      />
+      {isCursorVisible && (
+        <Cursor
+          positionLeft={nextPositionForCursor.left}
+          positoinTop={nextPositionForCursor.top}
+        />
+      )}
       <div
         onClick={onTypingAreaClick}
         className="text-[--text-secondary]  text-3xl px-20 h-[24%] overflow-scroll z-50 hideScrollbar flex flex-wrap"

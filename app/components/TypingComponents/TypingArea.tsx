@@ -30,6 +30,7 @@ export default function TypingArea() {
   const [referenceIndexObject, setReferenceIndexObject] = useState<number[][]>([
     [],
   ]);
+  const [typedIndex, setTypedIndex] = useState<number>(1);
 
   const onTypingAreaClick = () => {
     if (typingInputRef.current) {
@@ -37,19 +38,55 @@ export default function TypingArea() {
     }
   };
 
-  useEffect(() => {}, []);
+  const handleCorrectTyping = (key: string) => {
+    const currentWordIndex = referenceIndexObject[typedIndex][0];
+
+    const currentLetterIndex = referenceIndexObject[typedIndex][1];
+
+    const currentLetterRefrence = document.getElementsByClassName(
+      `letter-${currentWordIndex}-${currentLetterIndex}`
+    );
+
+    console.log(currentLetterRefrence);
+    setTypedIndex((prev) => prev + 1);
+    console.log(typedIndex);
+  };
 
   useEffect(() => {
     const newLetterObject = RandomLetterObject(50, commonEnglishWords);
     setLetterObject(newLetterObject);
+
+    const newReferenceIndexObject = () => {
+      newLetterObject.map((word, wordIndex) => {
+        word.map((_, letterIndex) => {
+          setReferenceIndexObject((prev) => {
+            return [...prev, [wordIndex, letterIndex]];
+          });
+        });
+      });
+    };
+
+    newReferenceIndexObject();
   }, []);
+
+  useEffect(() => {
+    if (typingInputRef.current) {
+      const handleKeyPress = (event: KeyboardEvent) => {
+        const key = event.key;
+        handleCorrectTyping(key);
+      };
+
+      typingInputRef.current.addEventListener("keydown", handleKeyPress);
+
+      return () => {
+        typingInputRef.current?.removeEventListener("keydown", handleKeyPress);
+      };
+    }
+  }, [referenceIndexObject]);
 
   return (
     <>
-      <TypingInput
-        typingInputRef={typingInputRef}
-        onLetterType={(letter) => console.log(letter)}
-      />
+      <TypingInput typingInputRef={typingInputRef} />
       {isCursorVisible && <Cursor positionLeft={0} positoinTop={0} />}
       <div
         onClick={onTypingAreaClick}

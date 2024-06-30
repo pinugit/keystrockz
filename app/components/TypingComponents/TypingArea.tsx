@@ -23,14 +23,19 @@ const wordVarient = {
 
 export default function TypingArea() {
   // Reference to the typing input element
-  const typingInputRef = useRef<HTMLInputElement>(null);
 
   const [isCursorVisible, setIsCursorVisible] = useState(false);
   const [letterObject, setLetterObject] = useState<string[][]>([[]]);
   const [referenceIndexObject, setReferenceIndexObject] = useState<number[][]>([
     [],
   ]);
-  const [typedIndex, setTypedIndex] = useState<number>(1);
+  const [cursorPosition, setCursorPosition] = useState<{
+    top: number;
+    left: number;
+  }>({ top: 0, left: 0 });
+
+  const typingInputRef = useRef<HTMLInputElement>(null);
+  const typedIndex = useRef(1);
 
   const onTypingAreaClick = () => {
     if (typingInputRef.current) {
@@ -39,25 +44,26 @@ export default function TypingArea() {
   };
 
   const handleCorrectTyping = (key: string) => {
-    const currentWordIndex = referenceIndexObject[typedIndex][0];
+    const currentWordIndex = referenceIndexObject[typedIndex.current][0];
 
-    const currentLetterIndex = referenceIndexObject[typedIndex][1];
+    const currentLetterIndex = referenceIndexObject[typedIndex.current][1];
 
     const currentLetterRefrence = document.getElementsByClassName(
       `letter-${currentWordIndex}-${currentLetterIndex}`
     );
 
     console.log(currentLetterRefrence);
-    setTypedIndex((prev) => prev + 1);
-    console.log(typedIndex);
+    typedIndex.current = typedIndex.current + 1;
   };
 
   useEffect(() => {
     const newLetterObject = RandomLetterObject(50, commonEnglishWords);
     setLetterObject(newLetterObject);
+  }, []);
 
+  useEffect(() => {
     const newReferenceIndexObject = () => {
-      newLetterObject.map((word, wordIndex) => {
+      letterObject.map((word, wordIndex) => {
         word.map((_, letterIndex) => {
           setReferenceIndexObject((prev) => {
             return [...prev, [wordIndex, letterIndex]];
@@ -67,11 +73,20 @@ export default function TypingArea() {
     };
 
     newReferenceIndexObject();
-  }, []);
+    const firstElement = document.getElementsByClassName(`letter-0-0`);
+    const firstElementRect = firstElement[0]?.getBoundingClientRect();
+    const firstELementTop = firstElementRect?.top;
+    const firstElementLeft = firstElementRect?.left;
+    setCursorPosition({ top: firstELementTop, left: firstElementLeft });
+    setTimeout(() => {
+      setIsCursorVisible(true);
+    }, 400);
+  }, [letterObject]);
 
   useEffect(() => {
     if (typingInputRef.current) {
       const handleKeyPress = (event: KeyboardEvent) => {
+        console.log(typedIndex.current);
         const key = event.key;
         handleCorrectTyping(key);
       };
@@ -84,10 +99,17 @@ export default function TypingArea() {
     }
   }, [referenceIndexObject]);
 
+  console.log(referenceIndexObject);
+
   return (
     <>
       <TypingInput typingInputRef={typingInputRef} />
-      {isCursorVisible && <Cursor positionLeft={0} positoinTop={0} />}
+      {isCursorVisible && (
+        <Cursor
+          positionLeft={cursorPosition?.left}
+          positoinTop={cursorPosition?.top}
+        />
+      )}
       <div
         onClick={onTypingAreaClick}
         className="text-[--text-secondary]  text-3xl px-20 h-[24%] overflow-scroll z-50 hideScrollbar flex flex-wrap"

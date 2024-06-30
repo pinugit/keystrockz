@@ -45,14 +45,32 @@ export default function TypingArea() {
 
   const handleCorrectTyping = (key: string) => {
     const currentWordIndex = referenceIndexObject[typedIndex.current][0];
-
     const currentLetterIndex = referenceIndexObject[typedIndex.current][1];
 
-    const currentLetterRefrence = document.getElementsByClassName(
+    const currentLetterRefrence = document.getElementById(
       `letter-${currentWordIndex}-${currentLetterIndex}`
     );
 
-    console.log(currentLetterRefrence);
+    if (currentLetterRefrence?.innerText === key) {
+      currentLetterRefrence.classList.add("text-[--text-primary]");
+    }
+    if (
+      referenceIndexObject[typedIndex.current + 1][0] >
+      referenceIndexObject[typedIndex.current][0]
+    ) {
+      setCursorPosition({
+        top: currentLetterRefrence?.offsetTop ?? 0,
+        left:
+          (currentLetterRefrence?.offsetLeft ?? 0) +
+          (currentLetterRefrence?.offsetWidth ?? 0),
+      });
+    } else {
+      setCursorPosition({
+        top: currentLetterRefrence?.offsetTop ?? 0,
+        left: currentLetterRefrence?.offsetLeft ?? 0,
+      });
+    }
+
     typedIndex.current = typedIndex.current + 1;
   };
 
@@ -73,10 +91,9 @@ export default function TypingArea() {
     };
 
     newReferenceIndexObject();
-    const firstElement = document.getElementsByClassName(`letter-0-0`);
-    const firstElementRect = firstElement[0]?.getBoundingClientRect();
-    const firstELementTop = firstElementRect?.top;
-    const firstElementLeft = firstElementRect?.left;
+    const firstElement = document.getElementById(`letter-0-0`);
+    const firstELementTop = firstElement?.offsetTop ?? 0;
+    const firstElementLeft = firstElement?.offsetLeft ?? 0;
     setCursorPosition({ top: firstELementTop, left: firstElementLeft });
     setTimeout(() => {
       setIsCursorVisible(true);
@@ -118,7 +135,7 @@ export default function TypingArea() {
           <div key={wordIndex} className="mb-8 mr-4 flex ">
             {word.map((letter, letterIndex) => (
               <motion.div
-                className={`letter-${wordIndex}-${letterIndex}`}
+                id={`letter-${wordIndex}-${letterIndex}`}
                 initial="initial"
                 animate="animate"
                 variants={wordVarient}

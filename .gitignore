@@ -37,3 +37,12 @@ next-env.d.ts
 
 #gitpod 
 .gitpod*.yml
+
+
+#xda-ninja
+
+/xdg-ninja
+
+#devcontainer.jscon
+
+.devcontainer.json
